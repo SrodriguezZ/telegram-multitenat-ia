@@ -1,0 +1,75 @@
+schema: spec-driven
+
+project: telegram-ia
+
+context: |
+  Tech stack: Java 17, Spring Boot 4.1.0, Maven Wrapper, Spring Web MVC, Spring Data JPA, Validation, Actuator, PostgreSQL runtime driver, Lombok annotation processing.
+  Architecture: Minimal Spring Boot application under com.telegram.ia; no domain/application/infrastructure packages yet. Future business features should follow strict 3-tier Hexagonal Architecture.
+  Testing: JUnit Jupiter through Spring Boot test starters; current test is a Spring context-load smoke test.
+  Build: ./mvnw test for tests, ./mvnw package for packaged build, ./mvnw compile for compilation checks.
+  Style: No dedicated lint, formatter, Checkstyle, Spotless, PMD, or coverage plugin detected.
+
+execution:
+  mode: auto
+  chained_pr_strategy: ask-always
+  review_budget_lines: 400
+
+testing:
+  strict_tdd: true
+  rationale: Test runner exists through Maven and JUnit Jupiter; strict TDD is supported by project tooling, but the current smoke test needs datasource test configuration before it can pass.
+  test_command: ./mvnw test
+  build_command: ./mvnw package
+  compile_command: ./mvnw compile
+  last_verified:
+    compile:
+      command: ./mvnw compile
+      status: passed
+    test:
+      command: ./mvnw test
+      status: failed
+      reason: Spring context test tries to configure a DataSource, but no spring.datasource.url or embedded test database is configured.
+  test_layers:
+    - name: unit
+      status: supported
+      command: ./mvnw test
+      notes: JUnit Jupiter is available through Spring Boot test starters.
+    - name: integration
+      status: configured-but-failing
+      command: ./mvnw test
+      notes: Spring Boot test context support exists, but the current context-load test fails because no datasource or embedded test database is configured.
+    - name: coverage
+      status: not-configured
+      command: null
+      notes: No JaCoCo or equivalent coverage plugin was detected.
+  tooling:
+    runner: Maven Surefire via Spring Boot parent
+    framework: JUnit Jupiter / Spring Boot Test
+    linter: null
+    formatter: null
+    type_checker: javac via Maven Compiler Plugin
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes.
+    - Identify affected modules/packages.
+    - Keep changes reviewable within the configured review budget unless chained PRs are explicitly accepted.
+  specs:
+    - Use Given/When/Then format for scenarios.
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY).
+  design:
+    - Include sequence diagrams for complex flows.
+    - Document architecture decisions with rationale.
+    - For Spring features, preserve the Domain -> Application -> Infrastructure dependency rule.
+  tasks:
+    - Group tasks by phase: infrastructure, implementation, testing.
+    - Use hierarchical numbering (1.1, 1.2, etc.).
+    - Keep tasks small enough to complete in one session.
+  apply:
+    - Follow existing code patterns and conventions.
+    - Load relevant coding skills for the project stack.
+    - Keep Spring, HTTP, persistence, messaging, and Feign concerns out of Domain and Application layers.
+  verify:
+    - Run tests if test infrastructure exists.
+    - Compare implementation against every spec scenario.
+  archive:
+    - Warn before merging destructive deltas or large removals.
