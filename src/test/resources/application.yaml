@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:telegram_ia_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+telegram-link:
+  invitation:
+    ttl: 48h
+  bot:
+    username: test_bot
+  token:
+    pepper: test-pepper
+  current-user:
+    company-user-id: 20000000-0000-0000-0000-000000000003
+    company-id: 20000000-0000-0000-0000-000000000001
+    role: ADMIN
+    status: ACTIVE

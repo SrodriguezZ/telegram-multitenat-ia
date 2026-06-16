@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/telegram_ia
+    username: root
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+telegram-link:
+  token:
+    pepper: dev-only-telegram-link-token-pepper
+  current-user:
+    company-user-id: 20000000-0000-0000-0000-000000000003
+    company-id: 20000000-0000-0000-0000-000000000001
+    role: ADMIN
+    status: ACTIVE

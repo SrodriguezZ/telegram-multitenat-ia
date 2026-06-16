@@ -1,3 +1,23 @@
 spring:
   application:
     name: Telegram-IA
+
+  profiles:
+    active: dev
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+telegram-link:
+  invitation:
+    ttl: 48h
+  bot:
+    username: ${TELEGRAM_LINK_BOT_USERNAME:JarviServeProBiker_bot}
+  token:
+    pepper: ${TELEGRAM_LINK_TOKEN_PEPPER}
+  current-user:
+    company-user-id: ${TELEGRAM_LINK_CURRENT_USER_COMPANY_USER_ID}
+    company-id: ${TELEGRAM_LINK_CURRENT_USER_COMPANY_ID}
+    role: ${TELEGRAM_LINK_CURRENT_USER_ROLE}
+    status: ${TELEGRAM_LINK_CURRENT_USER_STATUS}
