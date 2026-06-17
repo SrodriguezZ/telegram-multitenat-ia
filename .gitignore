@@ -34,3 +34,10 @@ build/
 
 ### Agent local cache ###
 .atl/
+
+.env
+*.env
+application-prod.yml
+application-prod.properties
+docker-compose.example.yml
+.env.example
