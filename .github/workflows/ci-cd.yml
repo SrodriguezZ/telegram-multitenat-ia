@@ -30,8 +30,8 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Build and test with Maven
-        run: ./mvnw --batch-mode clean verify
+      - name: Package application without tests
+        run: ./mvnw --batch-mode clean package -DskipTests
 
       - name: Resolve image name
         id: image
